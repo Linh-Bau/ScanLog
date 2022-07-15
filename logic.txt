@@ -1,0 +1,28 @@
+scan log
+Tìm log con hàng cũ
+So sánh MAC log con hàng cũ với data trong chương trình, nếu k có thông báo, khi mở thì thêm vào
+
+#SearchHelper
+search->return list
+from a folder->get folder->get all file
+
+#Class DutLogs
+-MAC
+-Path
+
+#Models
+DUT_Old_But_OK
+-List<DutLogs>
+-Add
+Dut_Old_Not_OK
+-List<DutLogs>
+-DoOK
+-Set
+BC:06:2D:90:00:00	BC:06:2D:BF:FF:FF
+BC:06:2D:E5:00:00	BC:06:2D:EF:FF:FF
+BC:06:2D:E0:00:00	BC:06:2D:E1:D7:AD
+BC:06:2D:E2:00:00	BC:06:2D:E2:B6:AB
+BC:06:2D:E4:00:00	BC:06:2D:E4:72:D8
+BC:06:2D:F2:00:00	BC:06:2D:F2:28:DC
+BC:06:2D:F0:00:00	BC:06:2D:F0:3F:E5
+
