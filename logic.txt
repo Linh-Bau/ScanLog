@@ -1,3 +1,4 @@
+Branch Main
 scan log
 Tìm log con hàng cũ
 So sánh MAC log con hàng cũ với data trong chương trình, nếu k có thông báo, khi mở thì thêm vào
