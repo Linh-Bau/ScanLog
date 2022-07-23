@@ -15,6 +15,8 @@ namespace App
         public SettingsForm()
         {
             InitializeComponent();
+            string ver = "1.0.7.23";
+            label2.Text = ver;
         }
 
         SettingValues settingValues;
