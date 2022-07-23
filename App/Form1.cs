@@ -22,6 +22,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
+            StaticGlobal.WriteLogAcction = LogWrite;
 
             timer1.Enabled = true;
 
@@ -62,6 +63,7 @@ namespace App
             if(keywork=="Start")
             {
                 start();
+                LogWrite("Start scan Log",true);
             }
             else if(keywork=="Finish")
             {
@@ -78,14 +80,8 @@ namespace App
             else if(keywork== "NewList")
             {
                 List<DutLog> DetectedList=data as List<DutLog>;
-                if(DetectedList.Count==0)
-                {
-                    WriteList();
-                }
-                else
-                {
-                    WriteList(DetectedList);
-                }
+                if (DetectedList.Count > 0) _vm.DetectedNew(DetectedList);
+                SearchTool.SearchHelper.AddListScanedToTextFile();
             }
         }
         
@@ -130,66 +126,42 @@ namespace App
                 action();
         }
 
-        void WriteList()
+        void LogWrite(string text)
         {
             if (richTextBox1.InvokeRequired)
             {
                 richTextBox1.Invoke((Action)(() =>
                 {
-                    richTextBox1.Clear();
-                    richTextBox1.AppendText("Everythings is ok!");
+                    richTextBox1.AppendText(text+Environment.NewLine);
                 }));
             }
             else
             {
-                richTextBox1.Clear();
-                richTextBox1.AppendText("Everythings is ok!");
-            }    
+                richTextBox1.AppendText(text + Environment.NewLine);
+            }
         }
-        void WriteList(List<DutLog> dutLogs)
+
+        void LogWrite(string text, bool clearLog=false)
         {
             if (richTextBox1.InvokeRequired)
             {
                 richTextBox1.Invoke((Action)(() =>
                 {
-                    richTextBox1.Clear();
-                    richTextBox1.DetectUrls = true;
+                    if(clearLog)
                     {
-                        foreach (DutLog dutLog in dutLogs)
-                        {
-                            var s = string.Format("{0}, file://{1}", dutLog.MAC, dutLog.LogPath);
-                            richTextBox1.AppendText(s + Environment.NewLine);
-                        }
-                        while (true)
-                        {
-                            if (_vm.DetectedNew(dutLogs))
-                            {
-                                break;
-                            }
-                        }
+                        richTextBox1.Clear();
                     }
+                    richTextBox1.AppendText(text + Environment.NewLine);
                 }));
             }
             else
             {
-                richTextBox1.Clear();
-                richTextBox1.DetectUrls = true;
+                if (clearLog)
                 {
-                    foreach (DutLog dutLog in dutLogs)
-                    {
-                        var s = string.Format("{0}, {1}", dutLog.MAC, dutLog.LogPath);
-                        richTextBox1.AppendText(s + Environment.NewLine);
-                    }
-                    while (true)
-                    {
-                        if (_vm.DetectedNew(dutLogs))
-                        {
-                            break;
-                        }
-                    }
+                    richTextBox1.Clear();
                 }
+                richTextBox1.AppendText(text + Environment.NewLine);
             }
-            
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)

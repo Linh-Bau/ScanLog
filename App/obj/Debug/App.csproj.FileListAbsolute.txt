@@ -18,3 +18,4 @@ D:\Brian\CODE\MyCode\ScanLog\App\bin\Debug\Resources\user.png
 D:\Brian\CODE\MyCode\ScanLog\App\obj\Debug\App.SettingsForm.resources
 D:\Brian\CODE\MyCode\ScanLog\App\bin\Debug\Settings.ini
 D:\Brian\CODE\MyCode\ScanLog\App\obj\Debug\App.ShowList.resources
+D:\Brian\CODE\MyCode\ScanLog\App\bin\Debug\nof.wav

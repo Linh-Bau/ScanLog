@@ -77,6 +77,7 @@
     <Compile Include="ShowList.Designer.cs">
       <DependentUpon>ShowList.cs</DependentUpon>
     </Compile>
+    <Compile Include="StaticGlobal.cs" />
     <Compile Include="ViewModels\RangeChecker.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <EmbeddedResource Include="AdminLoginForm.resx">
@@ -122,6 +123,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Range.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nof.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\luxshare.jpg">

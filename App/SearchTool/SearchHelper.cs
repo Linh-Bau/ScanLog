@@ -10,12 +10,14 @@ namespace App.SearchTool
 {
     public static class SearchHelper
     {
+
         public static List<string> GetAllFiles(string directory)
         {
+            GetlistLogChecked();
             List<string> files = new List<string>();
-
             {
-                files.AddRange(Directory.GetFiles(directory));
+                var logsNotCheck = CompareList(Directory.GetFiles(directory).ToList());
+                files.AddRange(logsNotCheck);
                 List<string> subDirs = Directory.GetDirectories(directory).ToList();
                 foreach (string Dir in subDirs)
                 {
@@ -26,12 +28,83 @@ namespace App.SearchTool
             return files;
         }
 
+        public static List<string> fileBeingWrites = new List<string>(); 
         public static List<DutLog> Log2DutLogObj(string path, ilogConveter logconverter)
         {
-            string data = File.ReadAllText(path);
-            List<DutLog> logs = logconverter.Convert(path,data);
-            return logs;
+            try
+            {
+                string data = File.ReadAllText(path);
+                List<DutLog> logs = logconverter.Convert(path, data);
+                return logs;
+            }
+            catch(Exception ex)
+            {
+                fileBeingWrites.Add(path);
+                return null;
+            }
         }
+
+        public static List<string> scanned=new List<string>();
+        public static void AddListScanedToTextFile()
+        {
+            foreach(string s in fileBeingWrites)
+            {
+                scanned.Remove(s);
+            }
+            fileBeingWrites.Clear();
+            string path = Directory.GetCurrentDirectory() + "\\Data\\listScanned.txt";
+            foreach (string name in scanned)
+            {
+                string fommat = string.Format("<{0}>", name) + Environment.NewLine;
+                File.AppendAllText(path,fommat);
+            }
+        }
+
+        private static List<string> listLogChecked = new List<string>();
+        public static void GetlistLogChecked()
+        {
+            var list=new List<string>();
+            string path = Directory.GetCurrentDirectory() + "\\Data\\listScanned.txt";
+            if(!File.Exists(path))
+            {
+                File.WriteAllText(path, "");
+                System.Threading.Thread.Sleep(100);
+            }
+            string data = File.ReadAllText(path);
+            string pattern = "<(?<fileName>.*?)>";
+            var items = Regex.Matches(data, pattern);
+            foreach (Match item in items)
+            {
+                string FilePath = item.Groups["fileName"].ToString();
+                listLogChecked.Add(FilePath);
+            }
+        }
+
+        public static List<string> CompareList(List<string> files)
+        {
+            List<string> list = new List<string>();
+            foreach(string file in files)
+            {
+                if(!CompareLogIsChecked(file))
+                {
+                    list.Add(file); 
+                }
+            }
+            return list;
+        }
+
+        public static bool CompareLogIsChecked(string filename)
+        {
+            foreach(var item in listLogChecked)
+            {
+                if(filename==item)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 
     public interface ilogConveter

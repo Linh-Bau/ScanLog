@@ -98,13 +98,16 @@ namespace App.ViewModels
             t = new System.Threading.Thread(ScanClick_Action);
             t.Start();
         }
+        
 
         void ScanClick_Action()
         {
-            ScanCallback("Start", null);
+            ScanCallback("Start",null);
             dut_Old_But_OK = new Models.Dut_old_But_OK();
             var allObject = GetAllObjFromLog(settingValues.LogPath);
+            StaticGlobal.Logger("Start find olds mac!");
             var GetOlds = GetOldMacDutLogs(allObject);
+            StaticGlobal.Logger(GetOlds.Count+ " MACs");
             var NewFailDut = Compare(GetOlds);
             ScanCallback("Finish", new List<object>() { allObject.Count, GetOlds.Count, NewFailDut.Count, NewFailDut.Count > 0 });
             ScanCallback("NewList", NewFailDut);
@@ -148,7 +151,11 @@ namespace App.ViewModels
 
         private List<DutLog> GetAllObjFromLog(string directory)
         {
+            StaticGlobal.Logger("Start get all logs file: ");
             var pathLogs= SearchTool.SearchHelper.GetAllFiles(directory);
+            SearchTool.SearchHelper.scanned = pathLogs;
+            StaticGlobal.Logger(pathLogs.Count+ " files!");
+            StaticGlobal.Logger("Start get all mac in log file: ");
             List<DutLog> list = new List<DutLog>();
             foreach(var file in pathLogs)
             {
@@ -156,6 +163,7 @@ namespace App.ViewModels
                 if(objs != null)
                     list.AddRange(objs);
             }
+            StaticGlobal.Logger(list.Count+ " MACs");
             return list;
         }
     }
