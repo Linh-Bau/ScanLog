@@ -1,0 +1,6 @@
+OTA
+SN IS REPEATED
+BC:06:2D:F4:2A:A9	zig:2	2022/07/24	08:08:24	PASS
+Bị trùng với lần test trước
+BC:06:2D:F4:2A:A9	zig:1	2022/07/24	08:03:24	PASS
+---------------------------------

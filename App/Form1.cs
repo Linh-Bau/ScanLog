@@ -8,40 +8,104 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace App
 {
+    using PushSNResultToMesForSetlessStation;
+    using System.Globalization;
+    using System.IO;
+
     public partial class Form1 : Form
     {
+        public Action closedFormCallBack { get; set; }
+
 
         ViewModels.ViewModel _vm;
         List<DutLog> listFail = new List<DutLog>();
         TimeSpan coundown;
-
+        LogRichText scanlog;
+        LogRichText pushmesslog;
         bool w = false;
         int wait = 0;
+        IDetectNewSN pushSnWorker;
+
         public Form1()
         {
             InitializeComponent();
-            StaticGlobal.WriteLogAcction = LogWrite;
+
+            scanlog = new LogRichText(this.richTextBox1);
+            StaticGlobal.WriteLogAcction = (text) => scanlog.LogWrite(text, -1);
 
             timer1.Enabled = true;
 
             _vm = new ViewModels.ViewModel();
             _vm.updateSettings = this.UpdateSettings;
             _vm.ScanCallback = this.ScanCallBack;
+            _vm.DataWriting = this.WriteData;
 
             this.Shown += new EventHandler((sender, e) => _vm.Start_Appication());
             this.btn_Settings.Click += new EventHandler((sender, e) => _vm.Setting_Click());
-            this.btn_Scan.Click+=new EventHandler((sender, e) => _vm.ScanClick());
+            this.btn_Scan.Click += Btn_Scan_Click;
             this.FormClosing += Form1_FormClosing;
+            //mesWindow = new MesWrongStation();
+            //check project
+            string path=System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            string exename=System.IO.Path.GetFileName(path);
+            if(exename.Contains("S23"))
+            {
+                StaticGlobal.Project = StaticGlobal.project.S23;
+            }
+            else
+            {
+                StaticGlobal.Project = StaticGlobal.project.B0;
+            }
+
+            if(StaticGlobal.currentStaion== "setless")
+            {
+                if (exename.Contains("OTA"))
+                {
+                    _vm.Setting_Click();
+                    pushmesslog = new LogRichText(this.richTextBox2);
+                    MesLog.Text = "OTA";
+                    var start_date = Settings.GetValue().DateTimeStart;
+                    pushSnWorker = new CheckRetest(start_date);
+                    pushSnWorker.logCallBack = (text, i) => pushmesslog.LogWrite(text, i);
+                    Task autoPushSnToMesTask = new Task(() => pushSnWorker.RunLoop());
+                    autoPushSnToMesTask.Start();
+                }   
+                else
+                {
+                    pushmesslog = new LogRichText(this.richTextBox2);
+                    //pushSnWorker = new CheckRetest(DateTime.ParseExact("20220701", "yyyyMMdd", CultureInfo.GetCultureInfo("en-US")));
+                    pushSnWorker=new AutoPush();
+                    pushSnWorker.logCallBack = (text, i) => pushmesslog.LogWrite(text, i);
+                    pushmesslog.LogWrite("Start scan log and push to mes!", -1);
+                    Task autoPushSnToMesTask = new Task(() => pushSnWorker.RunLoop());
+                    autoPushSnToMesTask.Start();
+                }                
+            }      
+            //
             
+        }
+
+        private void Btn_Scan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _vm.ScanClick();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            btn_Scan.Enabled = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if(_vm.FormClose())
             {
-
+                pushSnWorker.CloseThread();
             }
             else
             {
@@ -51,7 +115,10 @@ namespace App
 
         public void UpdateSettings()
         {
-            Station.Text = Settings.GetValue().Station;
+            string project = "B0";
+            if (StaticGlobal.Project == StaticGlobal.project.S23) project = "S23";
+            Station.Text = Settings.GetValue().Station+"  "+project;
+            label4.Text = Station.Text;
             lb_LocationPath.Text = Settings.GetValue().LogPath;
             lb_dateTimeStart.Text = Settings.GetValue().DateTimeStart.ToString();
             lb_coundown.Text = Settings.GetValue().Coundown.ToString();
@@ -63,7 +130,7 @@ namespace App
             if(keywork=="Start")
             {
                 start();
-                LogWrite("Start scan Log",true);
+                scanlog.LogWrite("Start scan Log",true);
             }
             else if(keywork=="Finish")
             {
@@ -81,17 +148,32 @@ namespace App
             {
                 List<DutLog> DetectedList=data as List<DutLog>;
                 if (DetectedList.Count > 0) _vm.DetectedNew(DetectedList);
-                SearchTool.SearchHelper.AddListScanedToTextFile();
+                StaticGlobal.SearchHelper.AddListScanedToTextFile();
+                FinishedAll();
+                scanlog.LogWrite("Write data success!",-1);
             }
         }
         
+        private void WriteData()
+        {
+            controlInvoke(lb_status, () => { lb_status.Text = "Data Writing..."; });
+        }
+
+        private void FinishedAll()
+        {
+            controlInvoke(lb_count, () => { lb_count.Text = "Clear after 10 secons"; });
+            wait = 10;
+            w = true;
+            controlInvoke(btn_Scan, () => btn_Scan.Enabled = true);
+        }
+
         private void Finish(int? totalScan,int? olds, int? notchecks, bool? detectedNew)
         {
             controlInvoke(lb_totalScan, (Action)(() => { lb_totalScan.Text = totalScan.ToString(); }));
             controlInvoke(lb_totalScan, (Action)(() => { lb_olds.Text = olds.ToString(); }));
             controlInvoke(lb_totalScan, (Action)(() => { lb_notChecks.Text = notchecks.ToString(); }));
 
-            controlInvoke(lb_status, (Action)(() => { lb_status.Text = "Finish"; }));
+            controlInvoke(lb_status, (Action)(() => { lb_status.Text = "Scan Finish"; }));
             if(detectedNew!=null && detectedNew==true)
             {
                 controlInvoke(lb_status, (Action)(() => { lb_status.BackColor = Color.Red; }));
@@ -100,10 +182,6 @@ namespace App
             {
                 controlInvoke(lb_status, (Action)(() => { lb_status.BackColor = Color.Green; }));
             }
-            
-            controlInvoke(lb_count, () => { lb_count.Text = "Clear after 10 secons"; });
-            wait = 10;
-            w = true;
         }
         private void start()
         {
@@ -126,44 +204,7 @@ namespace App
                 action();
         }
 
-        void LogWrite(string text)
-        {
-            if (richTextBox1.InvokeRequired)
-            {
-                richTextBox1.Invoke((Action)(() =>
-                {
-                    richTextBox1.AppendText(text+Environment.NewLine);
-                }));
-            }
-            else
-            {
-                richTextBox1.AppendText(text + Environment.NewLine);
-            }
-        }
-
-        void LogWrite(string text, bool clearLog=false)
-        {
-            if (richTextBox1.InvokeRequired)
-            {
-                richTextBox1.Invoke((Action)(() =>
-                {
-                    if(clearLog)
-                    {
-                        richTextBox1.Clear();
-                    }
-                    richTextBox1.AppendText(text + Environment.NewLine);
-                }));
-            }
-            else
-            {
-                if (clearLog)
-                {
-                    richTextBox1.Clear();
-                }
-                richTextBox1.AppendText(text + Environment.NewLine);
-            }
-        }
-
+        
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             try
@@ -204,31 +245,141 @@ namespace App
                 }
             }
         }
+
+        private void ScanLog_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            autoReturnMestab(10000);
+        }
+
+        private void autoReturnMestab(int delay)
+        {
+            var thread = new System.Threading.Thread(
+                () =>
+                {
+                    System.Threading.Thread.Sleep(delay);
+                    controlInvoke(ScanLog, () => { ScanLog.SelectTab(0); });
+                }
+                );
+            thread.Start();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            //pushmesslog.LogWrite("clear log", -1);
+        }
+    }
+
+    public class LogRichText
+    {
+        private RichTextBox log;
+
+        public LogRichText(RichTextBox richTextBox)
+        {
+            this.log=richTextBox;
+            log.TextChanged += Log_TextChanged;
+            log.DetectUrls = false;
+
+        }
+
         
 
-        //private void panel4_Paint(object sender, PaintEventArgs e)
-        //{
+        private void appendLogToText(string text)
+        {
+            string path =Directory.GetCurrentDirectory()+"\\mesLog\\"+ DateTime.Today.AddMinutes(5).ToString("yyMMdd") + ".txt";
+            if(!File.Exists(path))
+            {
+                string msg = string.Format("create log {0}\nStart scan log and push to mes!\n",DateTime.Now.ToString("yyMMdd HH:mm:ss"));
+                File.AppendAllText(path, msg);
+                System.Threading.Thread.Sleep(100);
+                this.log.Clear();
+                this.log.Text = msg;
+            }
+            using(StreamWriter sw = new StreamWriter(path,true))
+            {
+                sw.WriteLine(text);
+            }
+        }
 
-        //}
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    _vm = new ViewModels.ViewModel();
-        //    var list = _vm.Scan(@"D:\Log file");
-        //    listFail.AddRange(list);
-        //    foreach (var item in list)
-        //    {
-        //        richTextBox1.AppendText(item.MAC + "," + item.LogPath + Environment.NewLine);
-        //    }
-        //}
+        private void Log_TextChanged(object sender, EventArgs e)
+        {
+            // set the current caret position to the end
+            log.SelectionStart = log.Text.Length-1;
+            // scroll it automatically
+            log.ScrollToCaret();
+        }
 
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    _vm.GetOkList.AddRange(listFail);
-        //}
+        public void LogWrite(string text,int i=-1)
+        {
+            string msg;
+            switch (i)
+            {
+                case 0:
+                    msg=text+Environment.NewLine;
+                    break;
+                case 1:
+                    msg = "Warring: " + text + Environment.NewLine;
+                    break;
 
-        //private void label5_Click(object sender, EventArgs e)
-        //{
+                case 2:
+                    msg = "Error: " + text + Environment.NewLine;
+                    break;
+                default:
+                    msg = text + Environment.NewLine;
+                    break;
+            }
 
-        //}
+            
+            if (this.log.InvokeRequired)
+            {
+                this.log.Invoke((Action)(() =>
+                {
+                    if(msg.Contains("clear log"))
+                    {
+                        this.log.Clear();
+                        this.log.Text = "Start scan log and push to mes!\n";
+                    }
+                    else
+                    {
+                        this.log.AppendText(msg);
+                    }                    
+                }));
+            }
+            else
+            {
+                if (msg.Contains("clear log"))
+                {
+                    this.log.Clear();
+                    this.log.Text = "Start scan log and push to mes!\n";
+                }
+                else
+                {
+                    this.log.AppendText(msg);
+                }
+            }
+            //appendLogToText(msg);
+        }
+
+        public void LogWrite(string text, bool clearLog = false)
+        {
+            if (this.log.InvokeRequired)
+            {
+                this.log.Invoke((Action)(() =>
+                {
+                    if (clearLog)
+                    {
+                        this.log.Clear();
+                    }
+                    this.log.AppendText(text + Environment.NewLine);
+                }));
+            }
+            else
+            {
+                if (clearLog)
+                {
+                    this.log.Clear();
+                }
+                this.log.AppendText(text + Environment.NewLine);
+            }
+        }
     }
 }

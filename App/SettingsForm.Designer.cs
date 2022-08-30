@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txb_coundown = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -82,6 +82,15 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(628, 83);
             this.panel6.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 16);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "label2";
             // 
             // button3
             // 
@@ -240,9 +249,6 @@
             // 
             this.comboBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Pre-Advertising",
-            "100% Advertising"});
             this.comboBox1.Location = new System.Drawing.Point(123, 0);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(505, 24);
@@ -282,15 +288,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Settings";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // SettingsForm
             // 

@@ -1,0 +1,346 @@
+
+#INIT
+MODEL_LAST : SPEN
+MODEL_PROGRAM : SPEN
+MODEL : SPEN
+P/N : BC:06:2D:F4:2A:A9
+S/W : -
+DATE : 2022/07/24
+TIME : 08:03:24
+TESTCODE : TOPD22
+LOGVERSION : Ver 0.4
+JIG : 2
+RDM_LOT : 172.23.36.103_2022-07-24 08:00:12.448
+
+
+#TEST
+/*================================================================================
+Test Conditions,Measured Value,Lower Limit,Upper Limit,P/F,Sec
+================================================================================*/
+RSSI,-27,-50,0,P,1
+FW Version,43,43,FF,P,1
+BATT[0],2446,2330,2650,P,1
+BATT[1],2414,2300,2650,P,1
+BATT[2-1],28,3,70,P,1
+ACC Raw X,0,0,0,P,1
+ACC Raw Y,0,0,0,P,1
+ACC Raw Z,1,0,0,P,1
+ACC Vector SUM,1.00,0.80,1.20,P,1
+ACC Self(+) X,572,50,1700,P,1
+ACC Self(+) Y,515,50,1700,P,1
+ACC Self(+) Z,265,50,1700,P,1
+ACC Self(-) X,446,50,1700,P,1
+ACC Self(-) Y,512,50,1700,P,1
+ACC Self(-) Z,370,50,1700,P,1
+Gyro ZRO AVG X,0,-40,40,P,1
+Gyro ZRO AVG Y,0,-40,40,P,1
+Gyro ZRO AVG Z,0,-40,40,P,1
+Gyro Self Test X,0,-40,40,P,1
+Gyro Self Test Y,0,-40,40,P,1
+Gyro Self Test Z,0,-40,40,P,1
+Gyro Self Bias X,423,0,0,P,1
+Gyro Self Bias Y,424,0,0,P,1
+Gyro Self Bias Z,365,0,0,P,1
+Gyro Self Diff X,423,150,700,P,1
+Gyro Self Diff Y,424,150,700,P,1
+Gyro Self Diff Z,365,150,700,P,1
+Gravity Self X,30,0,0,P,1
+Gravity Self Y,702,0,0,P,1
+Gravity Self Z,8247,0,0,P,1
+Gravity Vector SUM,1.01,0.80,1.20,P,1
+Gravity Block Check,1,0,0,P,1
+Color,P,0,0,P,1
+
+#END
+RESULT : PASS
+TEST-TIME : 0
+//PASS_AVERAGE_TIME : 0
+//Total : 1 Pass : 1 Fail : 0
+//FAIL_RATE : 0%
+OCTA_CELL_ID : 
+FAB_CELL_ID : 
+CHIP_ID_OCTA : 
+CHIP_ID_OCTA_2nd : 
+CHIP_ID_CAMERA : 
+CHIP_ID_FRONT_CAMERA : 
+CHIP_ID_AP : 
+SPEN_BT_ID : BC:06:2D:F4:2A:A9
+
+
+
+#INIT
+MODEL_LAST : SPEN
+MODEL_PROGRAM : SPEN
+MODEL : SPEN
+P/N : BC:06:2D:F4:2A:A9
+S/W : -
+DATE : 2022/07/24
+TIME : 08:03:24
+TESTCODE : TOPD22
+LOGVERSION : Ver 0.4
+JIG : 2
+RDM_LOT : 172.23.36.103_2022-07-24 08:00:12.448
+
+
+#TEST
+/*================================================================================
+Test Conditions,Measured Value,Lower Limit,Upper Limit,P/F,Sec
+================================================================================*/
+RSSI,-27,-50,0,P,1
+FW Version,43,43,FF,P,1
+BATT[0],2446,2330,2650,P,1
+BATT[1],2414,2300,2650,P,1
+BATT[2-1],28,3,70,P,1
+ACC Raw X,0,0,0,P,1
+ACC Raw Y,0,0,0,P,1
+ACC Raw Z,1,0,0,P,1
+ACC Vector SUM,1.00,0.80,1.20,P,1
+ACC Self(+) X,572,50,1700,P,1
+ACC Self(+) Y,515,50,1700,P,1
+ACC Self(+) Z,265,50,1700,P,1
+ACC Self(-) X,446,50,1700,P,1
+ACC Self(-) Y,512,50,1700,P,1
+ACC Self(-) Z,370,50,1700,P,1
+Gyro ZRO AVG X,0,-40,40,P,1
+Gyro ZRO AVG Y,0,-40,40,P,1
+Gyro ZRO AVG Z,0,-40,40,P,1
+Gyro Self Test X,0,-40,40,P,1
+Gyro Self Test Y,0,-40,40,P,1
+Gyro Self Test Z,0,-40,40,P,1
+Gyro Self Bias X,423,0,0,P,1
+Gyro Self Bias Y,424,0,0,P,1
+Gyro Self Bias Z,365,0,0,P,1
+Gyro Self Diff X,423,150,700,P,1
+Gyro Self Diff Y,424,150,700,P,1
+Gyro Self Diff Z,365,150,700,P,1
+Gravity Self X,30,0,0,P,1
+Gravity Self Y,702,0,0,P,1
+Gravity Self Z,8247,0,0,P,1
+Gravity Vector SUM,1.01,0.80,1.20,P,1
+Gravity Block Check,1,0,0,P,1
+Color,P,0,0,P,1
+
+#END
+RESULT : PASS
+TEST-TIME : 0
+//PASS_AVERAGE_TIME : 0
+//Total : 1 Pass : 1 Fail : 0
+//FAIL_RATE : 0%
+OCTA_CELL_ID : 
+FAB_CELL_ID : 
+CHIP_ID_OCTA : 
+CHIP_ID_OCTA_2nd : 
+CHIP_ID_CAMERA : 
+CHIP_ID_FRONT_CAMERA : 
+CHIP_ID_AP : 
+SPEN_BT_ID : BC:06:2D:F4:2A:A9
+
+
+
+#INIT
+MODEL_LAST : SPEN
+MODEL_PROGRAM : SPEN
+MODEL : SPEN
+P/N : BC:06:2D:F4:2A:A9
+S/W : -
+DATE : 2022/07/24
+TIME : 08:03:24
+TESTCODE : TOPD22
+LOGVERSION : Ver 0.4
+JIG : 2
+RDM_LOT : 172.23.36.103_2022-07-24 08:00:12.448
+
+
+#TEST
+/*================================================================================
+Test Conditions,Measured Value,Lower Limit,Upper Limit,P/F,Sec
+================================================================================*/
+RSSI,-27,-50,0,P,1
+FW Version,43,43,FF,P,1
+BATT[0],2446,2330,2650,P,1
+BATT[1],2414,2300,2650,P,1
+BATT[2-1],28,3,70,P,1
+ACC Raw X,0,0,0,P,1
+ACC Raw Y,0,0,0,P,1
+ACC Raw Z,1,0,0,P,1
+ACC Vector SUM,1.00,0.80,1.20,P,1
+ACC Self(+) X,572,50,1700,P,1
+ACC Self(+) Y,515,50,1700,P,1
+ACC Self(+) Z,265,50,1700,P,1
+ACC Self(-) X,446,50,1700,P,1
+ACC Self(-) Y,512,50,1700,P,1
+ACC Self(-) Z,370,50,1700,P,1
+Gyro ZRO AVG X,0,-40,40,P,1
+Gyro ZRO AVG Y,0,-40,40,P,1
+Gyro ZRO AVG Z,0,-40,40,P,1
+Gyro Self Test X,0,-40,40,P,1
+Gyro Self Test Y,0,-40,40,P,1
+Gyro Self Test Z,0,-40,40,P,1
+Gyro Self Bias X,423,0,0,P,1
+Gyro Self Bias Y,424,0,0,P,1
+Gyro Self Bias Z,365,0,0,P,1
+Gyro Self Diff X,423,150,700,P,1
+Gyro Self Diff Y,424,150,700,P,1
+Gyro Self Diff Z,365,150,700,P,1
+Gravity Self X,30,0,0,P,1
+Gravity Self Y,702,0,0,P,1
+Gravity Self Z,8247,0,0,P,1
+Gravity Vector SUM,1.01,0.80,1.20,P,1
+Gravity Block Check,1,0,0,P,1
+Color,P,0,0,P,1
+
+#END
+RESULT : PASS
+TEST-TIME : 0
+//PASS_AVERAGE_TIME : 0
+//Total : 1 Pass : 1 Fail : 0
+//FAIL_RATE : 0%
+OCTA_CELL_ID : 
+FAB_CELL_ID : 
+CHIP_ID_OCTA : 
+CHIP_ID_OCTA_2nd : 
+CHIP_ID_CAMERA : 
+CHIP_ID_FRONT_CAMERA : 
+CHIP_ID_AP : 
+SPEN_BT_ID : BC:06:2D:F4:2A:A9
+
+
+
+#INIT
+MODEL_LAST : SPEN
+MODEL_PROGRAM : SPEN
+MODEL : SPEN
+P/N : BC:06:2D:F4:2A:A9
+S/W : -
+DATE : 2022/07/24
+TIME : 08:03:24
+TESTCODE : TOPD22
+LOGVERSION : Ver 0.4
+JIG : 2
+RDM_LOT : 172.23.36.103_2022-07-24 08:00:12.448
+
+
+#TEST
+/*================================================================================
+Test Conditions,Measured Value,Lower Limit,Upper Limit,P/F,Sec
+================================================================================*/
+RSSI,-27,-50,0,P,1
+FW Version,43,43,FF,P,1
+BATT[0],2446,2330,2650,P,1
+BATT[1],2414,2300,2650,P,1
+BATT[2-1],28,3,70,P,1
+ACC Raw X,0,0,0,P,1
+ACC Raw Y,0,0,0,P,1
+ACC Raw Z,1,0,0,P,1
+ACC Vector SUM,1.00,0.80,1.20,P,1
+ACC Self(+) X,572,50,1700,P,1
+ACC Self(+) Y,515,50,1700,P,1
+ACC Self(+) Z,265,50,1700,P,1
+ACC Self(-) X,446,50,1700,P,1
+ACC Self(-) Y,512,50,1700,P,1
+ACC Self(-) Z,370,50,1700,P,1
+Gyro ZRO AVG X,0,-40,40,P,1
+Gyro ZRO AVG Y,0,-40,40,P,1
+Gyro ZRO AVG Z,0,-40,40,P,1
+Gyro Self Test X,0,-40,40,P,1
+Gyro Self Test Y,0,-40,40,P,1
+Gyro Self Test Z,0,-40,40,P,1
+Gyro Self Bias X,423,0,0,P,1
+Gyro Self Bias Y,424,0,0,P,1
+Gyro Self Bias Z,365,0,0,P,1
+Gyro Self Diff X,423,150,700,P,1
+Gyro Self Diff Y,424,150,700,P,1
+Gyro Self Diff Z,365,150,700,P,1
+Gravity Self X,30,0,0,P,1
+Gravity Self Y,702,0,0,P,1
+Gravity Self Z,8247,0,0,P,1
+Gravity Vector SUM,1.01,0.80,1.20,P,1
+Gravity Block Check,1,0,0,P,1
+Color,P,0,0,P,1
+
+#END
+RESULT : PASS
+TEST-TIME : 0
+//PASS_AVERAGE_TIME : 0
+//Total : 1 Pass : 1 Fail : 0
+//FAIL_RATE : 0%
+OCTA_CELL_ID : 
+FAB_CELL_ID : 
+CHIP_ID_OCTA : 
+CHIP_ID_OCTA_2nd : 
+CHIP_ID_CAMERA : 
+CHIP_ID_FRONT_CAMERA : 
+CHIP_ID_AP : 
+SPEN_BT_ID : BC:06:2D:F4:2A:A9
+
+
+
+#INIT
+MODEL_LAST : SPEN
+MODEL_PROGRAM : SPEN
+MODEL : SPEN
+P/N : BC:06:2D:90:00:00
+S/W : -
+DATE : 2022/07/24
+TIME : 08:03:24
+TESTCODE : TOPD22
+LOGVERSION : Ver 0.4
+JIG : 2
+RDM_LOT : 172.23.36.103_2022-07-24 08:00:12.448
+
+
+#TEST
+/*================================================================================
+Test Conditions,Measured Value,Lower Limit,Upper Limit,P/F,Sec
+================================================================================*/
+RSSI,-27,-50,0,P,1
+FW Version,43,43,FF,P,1
+BATT[0],2446,2330,2650,P,1
+BATT[1],2414,2300,2650,P,1
+BATT[2-1],28,3,70,P,1
+ACC Raw X,0,0,0,P,1
+ACC Raw Y,0,0,0,P,1
+ACC Raw Z,1,0,0,P,1
+ACC Vector SUM,1.00,0.80,1.20,P,1
+ACC Self(+) X,572,50,1700,P,1
+ACC Self(+) Y,515,50,1700,P,1
+ACC Self(+) Z,265,50,1700,P,1
+ACC Self(-) X,446,50,1700,P,1
+ACC Self(-) Y,512,50,1700,P,1
+ACC Self(-) Z,370,50,1700,P,1
+Gyro ZRO AVG X,0,-40,40,P,1
+Gyro ZRO AVG Y,0,-40,40,P,1
+Gyro ZRO AVG Z,0,-40,40,P,1
+Gyro Self Test X,0,-40,40,P,1
+Gyro Self Test Y,0,-40,40,P,1
+Gyro Self Test Z,0,-40,40,P,1
+Gyro Self Bias X,423,0,0,P,1
+Gyro Self Bias Y,424,0,0,P,1
+Gyro Self Bias Z,365,0,0,P,1
+Gyro Self Diff X,423,150,700,P,1
+Gyro Self Diff Y,424,150,700,P,1
+Gyro Self Diff Z,365,150,700,P,1
+Gravity Self X,30,0,0,P,1
+Gravity Self Y,702,0,0,P,1
+Gravity Self Z,8247,0,0,P,1
+Gravity Vector SUM,1.01,0.80,1.20,P,1
+Gravity Block Check,1,0,0,P,1
+Color,P,0,0,P,1
+
+#END
+RESULT : PASS
+TEST-TIME : 0
+//PASS_AVERAGE_TIME : 0
+//Total : 1 Pass : 1 Fail : 0
+//FAIL_RATE : 0%
+OCTA_CELL_ID : 
+FAB_CELL_ID : 
+CHIP_ID_OCTA : 
+CHIP_ID_OCTA_2nd : 
+CHIP_ID_CAMERA : 
+CHIP_ID_FRONT_CAMERA : 
+CHIP_ID_AP : 
+SPEN_BT_ID : BC:06:2D:F4:2A:A9
+
+
+

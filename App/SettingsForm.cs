@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,9 +17,15 @@ namespace App
         public SettingsForm()
         {
             InitializeComponent();
-            string ver = "1.0.7.23";
+            string bd = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString("dd-MM-yy hh:mm:ss");
+            string ver = "1.0.8.29.2, BuildDate: "+bd;
             label2.Text = ver;
+            if(StaticGlobal.currentStaion=="setless")
+                comboBox1.DataSource = new List<string>() { "setless" };
+            else comboBox1.DataSource = new List<string>() { "Pre-Advertising", "100% Advertising" };
         }
+
+    
 
         SettingValues settingValues;
 
@@ -106,6 +114,11 @@ namespace App
         {
             station = comboBox1.SelectedItem.ToString();
             lb_station.Text = station;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

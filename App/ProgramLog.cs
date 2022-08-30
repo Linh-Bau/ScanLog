@@ -18,6 +18,7 @@ namespace App
                 File.WriteAllText(Log, msg + Environment.NewLine);
             }
             File.AppendAllText(Log, s+Environment.NewLine);
+            System.Threading.Thread.Sleep(1);
         }
 
         public static void Write(string s,List<DutLog> dutLogs,string date)

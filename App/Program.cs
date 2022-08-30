@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,14 +18,37 @@ namespace App
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            try
-            {
-                Application.Run(new Form1());
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            Application.Run(new Form1());
         }
     }
+
+
+
+    //public class MultiFormContext : ApplicationContext
+    //{
+    //    private int openForms;
+    //    private Form mesForm;
+    //    public MultiFormContext(params Form[] forms)
+    //    {
+    //        closeAppBefore();
+    //        openForms = forms.Length;
+    //        mesForm = forms[0];
+    //        foreach (var form in forms)
+    //        {
+    //            form.Show();
+    //        }
+    //    }
+
+    //    private void closeAppBefore()
+    //    {
+    //        var process = Process.GetProcessesByName("App");
+    //        foreach(Process p in process)
+    //        {
+    //            if(p.Id!=Process.GetCurrentProcess().Id)
+    //            {
+    //                p.Kill();
+    //            }
+    //        }
+    //    }
+    //}
 }

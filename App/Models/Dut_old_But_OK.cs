@@ -61,6 +61,7 @@ namespace App.Models
             {
                 string content = string.Format("<{0};{1}>" + Environment.NewLine, dutLog.MAC, dutLog.LogPath);
                 File.AppendAllText(path, content);
+                System.Threading.Thread.Sleep(1);
                 return true;
             }
         }

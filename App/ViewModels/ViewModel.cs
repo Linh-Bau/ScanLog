@@ -13,6 +13,7 @@ namespace App.ViewModels
         public Action updateSettings { get; set; }
         public Action<string, object> ScanCallback { get; set; }
         public Action DetectedNewCallback { get; set; }
+        public Action DataWriting { get; set; }
         public string LocationLog { get; set; }
 
         RangeChecker rangeChecker;
@@ -99,24 +100,31 @@ namespace App.ViewModels
             t.Start();
         }
         
-
         void ScanClick_Action()
         {
-            ScanCallback("Start",null);
-            dut_Old_But_OK = new Models.Dut_old_But_OK();
-            var allObject = GetAllObjFromLog(settingValues.LogPath);
-            StaticGlobal.Logger("Start find olds mac!");
-            var GetOlds = GetOldMacDutLogs(allObject);
-            StaticGlobal.Logger(GetOlds.Count+ " MACs");
-            var NewFailDut = Compare(GetOlds);
-            ScanCallback("Finish", new List<object>() { allObject.Count, GetOlds.Count, NewFailDut.Count, NewFailDut.Count > 0 });
-            ScanCallback("NewList", NewFailDut);
+            try
+            {
+                ScanCallback("Start", null);
+                dut_Old_But_OK = new Models.Dut_old_But_OK();
+                var allObject = GetAllObjFromLog(settingValues.LogPath);
+                StaticGlobal.Logger("Start find olds mac!");
+                var GetOlds = GetOldMacDutLogs(allObject);
+                StaticGlobal.Logger(GetOlds.Count + " MACs");
+                var NewFailDut = Compare(GetOlds);
+                ScanCallback("Finish", new List<object>() { allObject.Count, GetOlds.Count, NewFailDut.Count, NewFailDut.Count > 0 });
+                ScanCallback("NewList", NewFailDut);
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("exception error: " + ex.ToString());
+            }
         }
         public bool DetectedNew(List<DutLog> dutLogs)
         {
             ShowList showList = new ShowList(dutLogs);  
             if(showList.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
             {
+                DataWriting.Invoke();
                 GetOkList.AddRange(dutLogs);
                 return true;
             }
@@ -152,16 +160,20 @@ namespace App.ViewModels
         private List<DutLog> GetAllObjFromLog(string directory)
         {
             StaticGlobal.Logger("Start get all logs file: ");
-            var pathLogs= SearchTool.SearchHelper.GetAllFiles(directory);
-            SearchTool.SearchHelper.scanned = pathLogs;
+            var pathLogs= StaticGlobal.SearchHelper.GetAllFiles(directory);
+            SearchTool.SearchHelper.scanned = StaticGlobal.SearchHelper.listPathToPathMd5(pathLogs);
             StaticGlobal.Logger(pathLogs.Count+ " files!");
             StaticGlobal.Logger("Start get all mac in log file: ");
             List<DutLog> list = new List<DutLog>();
             foreach(var file in pathLogs)
             {
-                var objs = SearchTool.SearchHelper.Log2DutLogObj(file, new SearchTool.Pre_advertising());
+                SearchTool.ilogConveter ilogConveter = null;
+                if (StaticGlobal.currentStaion == "setless") ilogConveter = new SearchTool.SetLess();
+                else ilogConveter = new SearchTool.Pre_advertising();     
+                var objs = StaticGlobal.SearchHelper.Log2DutLogObj(file, ilogConveter);
                 if(objs != null)
                     list.AddRange(objs);
+                System.Threading.Thread.Sleep(1);
             }
             StaticGlobal.Logger(list.Count+ " MACs");
             return list;
