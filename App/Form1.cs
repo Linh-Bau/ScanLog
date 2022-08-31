@@ -303,7 +303,7 @@ namespace App
         private void Log_TextChanged(object sender, EventArgs e)
         {
             // set the current caret position to the end
-            log.SelectionStart = log.Text.Length-1;
+            log.SelectionStart = log.Text.Length;
             // scroll it automatically
             log.ScrollToCaret();
         }
