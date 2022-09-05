@@ -18,7 +18,7 @@ namespace App
         {
             InitializeComponent();
             string bd = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString("dd-MM-yy hh:mm:ss");
-            string ver = "1.0.8.31.0, BuildDate: "+bd;
+            string ver = "1.0.9.05.0, BuildDate: "+bd;
             label2.Text = ver;
             if(StaticGlobal.currentStaion=="setless")
                 comboBox1.DataSource = new List<string>() { "setless" };

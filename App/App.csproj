@@ -67,6 +67,7 @@
     <Compile Include="ProgramLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushSNResultToMesForSetlessStation\AutoPush.cs" />
+    <Compile Include="PushSNResultToMesForSetlessStation\CheckNoSNAndNoMesFromCsvFile.cs" />
     <Compile Include="PushSNResultToMesForSetlessStation\CheckRetest.cs" />
     <Compile Include="PushSNResultToMesForSetlessStation\IDetectNewSN.cs" />
     <Compile Include="SearchTool\SearchHelper.cs" />

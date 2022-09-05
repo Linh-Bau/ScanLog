@@ -62,7 +62,17 @@ namespace App
 
             if(StaticGlobal.currentStaion== "setless")
             {
-                if (exename.Contains("OTA"))
+                if(exename.Contains("Check_OLD_ID"))
+                {
+                    pushmesslog = new LogRichText(this.richTextBox2);
+                    MesLog.Text = "Check SN";
+                    pushSnWorker = new CheckNoSNAndNoMesFromCsvFile(DateTime.Now);
+                    pushSnWorker.logCallBack = (text, i) => pushmesslog.LogWrite(text, i);
+                    Task autoPushSnToMesTask = new Task(() => pushSnWorker.RunLoop());
+                    autoPushSnToMesTask.Start();
+                }
+
+                else if (exename.Contains("OTA"))
                 {
                     _vm.Setting_Click();
                     pushmesslog = new LogRichText(this.richTextBox2);
